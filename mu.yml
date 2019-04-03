@@ -17,9 +17,10 @@ environments:
     # instanceType: t2.micro
 
 # - name: prod
-#   cluster:
-#     keyName: mu-wordpress
-#     instanceType: t2.small
+#   provider: ecs-fargate
+# #   cluster:
+# #     keyName: mu-wordpress
+# #     instanceType: t2.small
 
 ## See https://github.com/stelligent/mu/wiki/Services
 service:
@@ -83,7 +84,7 @@ service:
 
       #### The GitHub repo slug or CodeCommit repo name to build
       #### (default: none)
-      repo: stelligent/mu-wordpress
+      repo: odise/mu-wordpress
 
     acceptance:
       #### The environment name to deploy to for testing
