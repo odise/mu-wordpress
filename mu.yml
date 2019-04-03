@@ -23,7 +23,7 @@ environments:
 #     instanceType: t2.small
 
 templates:
-  mu-environment-test:
+  mu-iam-service-mu-wordpress-test:
     Resources:
       ExtraPolicy:
         Type: AWS::IAM::Policy
