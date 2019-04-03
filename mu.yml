@@ -22,6 +22,37 @@ environments:
 #     keyName: mu-wordpress
 #     instanceType: t2.small
 
+templates:
+  mu-environment-test:
+    Resources:
+      ExtraPolicy:
+        Type: AWS::IAM::Policy
+        Properties: 
+          PolicyName: "example"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - 
+                Effect: "Allow"
+                Action: 
+                  - "s3:Get*"
+                Resource: "*"
+          Roles: 
+            - 
+              "mu-service-mu-wordpress-test-task-eu-central-1"
+
+      # Define a new security group
+      ExtraSG:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+          VpcId:
+            Fn::ImportValue: !Sub ${VpcId}
+          GroupDescription: Example additional ECS Host Security Group
+          SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: '8080'
+            ToPort: '8080'
+            CidrIp: !Ref SshAllow
 ## See https://github.com/stelligent/mu/wiki/Services
 service:
   name: mu-wordpress
@@ -109,35 +140,4 @@ service:
       #### (default: production)
       environment: prod
 
-templates:
-  mu-environment-test:
-    Resources:
-      ExtraPolicy:
-        Type: AWS::IAM::Policy
-        Properties: 
-          PolicyName: "example"
-          PolicyDocument: 
-            Version: "2012-10-17"
-            Statement: 
-              - 
-                Effect: "Allow"
-                Action: 
-                  - "s3:Get*"
-                Resource: "*"
-          Roles: 
-            - 
-              "mu-service-mu-wordpress-test-task-eu-central-1"
-
-      # Define a new security group
-      ExtraSG:
-        Type: AWS::EC2::SecurityGroup
-        Properties:
-          VpcId:
-            Fn::ImportValue: !Sub ${VpcId}
-          GroupDescription: Example additional ECS Host Security Group
-          SecurityGroupIngress:
-          - IpProtocol: tcp
-            FromPort: '8080'
-            ToPort: '8080'
-            CidrIp: !Ref SshAllow
 
