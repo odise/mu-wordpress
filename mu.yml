@@ -4,21 +4,22 @@
 ## See https://github.com/stelligent/mu/wiki/Environments
 environments:
 - name: test
+  provider: ecs-fargate
   ### Attributes for the ECS container instances
-  cluster:
+  # cluster:
     #### Name of EC2 keypair to associate with ECS container instances.
     #### Launches bastion host if defined.
     #### (default: none)
-    keyName: mu-wordpress
+    # keyName: mu-wordpress
 
     #### The instance type to use for the ECS container instances
     #### (default: t2.micro)
-    instanceType: t2.micro
+    # instanceType: t2.micro
 
-- name: prod
-  cluster:
-    keyName: mu-wordpress
-    instanceType: t2.small
+# - name: prod
+#   cluster:
+#     keyName: mu-wordpress
+#     instanceType: t2.small
 
 ## See https://github.com/stelligent/mu/wiki/Services
 service:
@@ -71,7 +72,7 @@ service:
     #### in wp-config.php
     WORDPRESS_DEBUG:
       test: 'true'
-      prod: 
+      # prod: 
 
   ### See https://github.com/stelligent/mu/wiki/Pipelines
   pipeline:
@@ -88,7 +89,7 @@ service:
       #### The environment name to deploy to for testing
       #### (default: dev)
       environment: test
-    production:
-      #### The environment name to deploy to for production
-      #### (default: production)
-      environment: prod
+    # production:
+    #   #### The environment name to deploy to for production
+    #   #### (default: production)
+    #   environment: prod
