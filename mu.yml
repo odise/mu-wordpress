@@ -48,6 +48,20 @@ service:
   ###   but perhaps we can send media requests elsewhere?
   pathPatterns:
   - /*
+  # desiredCount: 4                    # The desired number of tasks to run for the service (default: 2)
+  # dockerfile: ./Dockerfile           # The relative path to the Dockerfile to build images (default: ./Dockerfile)
+  # imageRepository: tutum/hello-world # The repository to push images to and deploy services from.  Leave unset to have mu manage an ECR repository (default: none)
+  # port: 80                           # The port to expose from the container (default: 8080)
+  # protocol: HTTP                     # The protocol for the port exposed from the container (default: HTTP)
+  # healthEndpoint: /health            # The endpoint inside the container to determine if the task is healthy (default: /health)
+  # cpu: 20                            # The number of CPU units to allocate to each task (default: 10)
+  # memory: 400                        # The amount of memory in MiB to allocate to each task (default: 300)
+  # networkMode: bridge                # The networking mode for the task: none, bridge, host, or awsvpc (default: bridge)
+  # targetCPUUtilization: 80           # The target CPU utilization for autoscaling (default: 75)
+  # minSize: 1                         # The minimum number of services for autoscaling (default: 1)
+  # maxSize: 2                         # The maximum number of services for autoscaling (default: 2)
+  # deploymentStrategy: blue_green     # The strategy for deploying new images: blue_green, rolling, replace (default: blue_green)
+
 
   ### See https://github.com/stelligent/mu/wiki/Databases
   database:
@@ -94,3 +108,36 @@ service:
       #### The environment name to deploy to for production
       #### (default: production)
       environment: prod
+
+templates:
+  mu-environment-test:
+    Resources:
+      ExtraPolicy:
+        Type: AWS::IAM::Policy
+        Properties: 
+          PolicyName: "example"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - 
+                Effect: "Allow"
+                Action: 
+                  - "s3:Get*"
+                Resource: "*"
+          Roles: 
+            - 
+              "mu-service-mu-wordpress-test-task-eu-central-1"
+
+      # Define a new security group
+      ExtraSG:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+          VpcId:
+            Fn::ImportValue: !Sub ${VpcId}
+          GroupDescription: Example additional ECS Host Security Group
+          SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: '8080'
+            ToPort: '8080'
+            CidrIp: !Ref SshAllow
+
