@@ -16,11 +16,11 @@ environments:
     #### (default: t2.micro)
     # instanceType: t2.micro
 
-# - name: prod
-#   provider: ecs-fargate
-# #   cluster:
-# #     keyName: mu-wordpress
-# #     instanceType: t2.small
+- name: prod
+  provider: ecs-fargate
+#   cluster:
+#     keyName: mu-wordpress
+#     instanceType: t2.small
 
 ## See https://github.com/stelligent/mu/wiki/Services
 service:
@@ -73,7 +73,7 @@ service:
     #### in wp-config.php
     WORDPRESS_DEBUG:
       test: 'true'
-      # prod: 
+      prod: 
 
   ### See https://github.com/stelligent/mu/wiki/Pipelines
   pipeline:
@@ -90,7 +90,7 @@ service:
       #### The environment name to deploy to for testing
       #### (default: dev)
       environment: test
-    # production:
-    #   #### The environment name to deploy to for production
-    #   #### (default: production)
-    #   environment: prod
+    production:
+      #### The environment name to deploy to for production
+      #### (default: production)
+      environment: prod
