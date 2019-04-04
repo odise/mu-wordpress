@@ -36,6 +36,7 @@ templates:
                 Effect: "Allow"
                 Action: 
                   - "s3:Get*"
+                  - "s3:Put*"
                 Resource: "*"
           Roles: 
             - 
