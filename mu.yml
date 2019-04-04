@@ -6,7 +6,7 @@ environments:
 - name: test
   provider: ecs-fargate
   ### Attributes for the ECS container instances
-  # cluster:
+  cluster:
     #### Name of EC2 keypair to associate with ECS container instances.
     #### Launches bastion host if defined.
     #### (default: none)
@@ -15,6 +15,13 @@ environments:
     #### The instance type to use for the ECS container instances
     #### (default: t2.micro)
     # instanceType: t2.micro
+    ### Attributes for the ELB
+    loadbalancer:
+      internal: true                # Whether to create an internal ELB or not (default: false)
+      # hostedzone: mydomain.com      # HostedZone in Route53 to create ELB DNS for.  Leave blank to not create DNS (default: none)
+      # name: api                     # Name to register in hostedzone for ELB DNS.  (default: environment name)
+      # certificate: 973c1a2f-8d43... # The identifier of a certificate in ACM.  If defined, will create HTTPS listener in ELB.  (default: none)
+
 
 - name: prod
   provider: ecs-fargate
@@ -22,7 +29,7 @@ environments:
 #     keyName: mu-wordpress
 #     instanceType: t2.small
 
-templates:
+# templates:
 #   mu-iam-service-mu-wordpress-test:
 #     Resources:
 #       ExtraPolicy:
@@ -42,25 +49,25 @@ templates:
 #             - 
 #               "mu-service-mu-wordpress-test-task-eu-central-1"
 
-  mu-loadbalancer-test:
-    Resources:
-      # Define a new security group
-      ExtraSG:
-        Type: AWS::EC2::SecurityGroup
-        Properties:
-          VpcId:
-            Fn::ImportValue: 
-              Fn::Sub: ${VpcId}
-          GroupDescription: Example additional ECS Host Security Group
-          SecurityGroupIngress:
-          - IpProtocol: tcp
-            FromPort: '80'
-            ToPort: '80'
-            CidrIp: 62.96.159.233/32
-          - IpProtocol: tcp
-            FromPort: '443'
-            ToPort: '443'
-            CidrIp: 62.96.159.233/32
+  # mu-loadbalancer-test:
+  #   Resources:
+  #     # Define a new security group
+  #     ElbSG:
+  #       Type: AWS::EC2::SecurityGroup
+  #       Properties:
+  #         VpcId:
+  #           Fn::ImportValue: 
+  #             Fn::Sub: ${VpcId}
+  #         GroupDescription: Example additional ECS Host Security Group
+  #         SecurityGroupIngress:
+  #         - IpProtocol: tcp
+  #           FromPort: '80'
+  #           ToPort: '80'
+  #           CidrIp: 62.96.159.233/32
+  #         - IpProtocol: tcp
+  #           FromPort: '443'
+  #           ToPort: '443'
+  #           CidrIp: 62.96.159.233/32
 
 
 ## See https://github.com/stelligent/mu/wiki/Services
