@@ -1,4 +1,7 @@
+# Accomadates https://github.com/stelligent/mu/blob/develop/templates/assets/cloudformation/service-iam.yml
+
 Resources:
+  # Add additional AWS::IAM::Role elements to EcsTaskRole
   EcsTaskRole:
     Type: AWS::IAM::Role
     Condition: IsEcsService
@@ -13,6 +16,7 @@ Resources:
           - sts:AssumeRole
       Path: "/"
       Policies:
+      # S3 access policy
       - PolicyName: s3-access
         PolicyDocument:
           Statement:

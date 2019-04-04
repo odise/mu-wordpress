@@ -141,6 +141,6 @@ service:
       #### (default: production)
       environment: prod
 
-
+# CFN code modifications
 extensions:
   - url: extensions/app
