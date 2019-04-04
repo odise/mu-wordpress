@@ -22,7 +22,7 @@ environments:
 #     keyName: mu-wordpress
 #     instanceType: t2.small
 
-# templates:
+templates:
 #   mu-iam-service-mu-wordpress-test:
 #     Resources:
 #       ExtraPolicy:
@@ -42,18 +42,26 @@ environments:
 #             - 
 #               "mu-service-mu-wordpress-test-task-eu-central-1"
 
+  mu-loadbalancer-test:
+    Resources:
       # Define a new security group
-      # ExtraSG:
-      #   Type: AWS::EC2::SecurityGroup
-      #   Properties:
-      #     VpcId:
-      #       Fn::ImportValue: !Sub ${VpcId}
-      #     GroupDescription: Example additional ECS Host Security Group
-      #     SecurityGroupIngress:
-      #     - IpProtocol: tcp
-      #       FromPort: '8080'
-      #       ToPort: '8080'
-      #       CidrIp: !Ref SshAllow
+      ExtraSG:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+          VpcId:
+            Ref: VpcId
+          GroupDescription: Example additional ECS Host Security Group
+          SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: '80'
+            ToPort: '80'
+            CidrIp: 62.96.159.233/32
+          - IpProtocol: tcp
+            FromPort: '443'
+            ToPort: '443'
+            CidrIp: 62.96.159.233/32
+
+
 ## See https://github.com/stelligent/mu/wiki/Services
 service:
   name: mu-wordpress
