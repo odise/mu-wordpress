@@ -49,7 +49,7 @@ templates:
         Type: AWS::EC2::SecurityGroup
         Properties:
           VpcId:
-            Ref: VpcId
+            Fn::Sub: ${VpcId}
           GroupDescription: Example additional ECS Host Security Group
           SecurityGroupIngress:
           - IpProtocol: tcp
