@@ -3,7 +3,6 @@ Resources:
     Type: AWS::IAM::Role
     Condition: IsEcsService
     Properties:
-      RoleName: !Sub ${Namespace}-service-${ServiceName}-${EnvironmentName}-task-${AWS::Region}
       AssumeRolePolicyDocument:
         Statement:
         - Effect: Allow
@@ -14,31 +13,6 @@ Resources:
           - sts:AssumeRole
       Path: "/"
       Policies:
-      - PolicyName: ecs-task
-        PolicyDocument:
-          Statement:
-          - Effect: Allow
-            Action:
-            - ecs:DescribeTasks
-            Resource: "*"
-            Condition:
-              ArnEquals:
-                "ecs:cluster": !Sub arn:${AWS::Partition}:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${Namespace}-environment-${EnvironmentName}
-      - PolicyName: task-execution
-        PolicyDocument:
-          Statement:
-          - Effect: Allow
-            Action:
-            - ecr:GetAuthorizationToken
-            - ecr:BatchCheckLayerAvailability
-            - ecr:GetDownloadUrlForLayer
-            - ecr:BatchGetImage
-            - logs:CreateLogGroup
-            - logs:CreateLogStream
-            - logs:PutLogEvents
-            - logs:DescribeLogGroups
-            - logs:DescribeLogStreams
-            Resource: '*'
       - PolicyName: s3-access
         PolicyDocument:
           Statement:
