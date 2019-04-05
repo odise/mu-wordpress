@@ -1,4 +1,4 @@
-# Resources:
+Resources:
 #   ElbSG:
 #     Type: AWS::EC2::SecurityGroup
 #     Properties:
@@ -12,3 +12,19 @@
 #         FromPort: '443'
 #         ToPort: '443'
 #         CidrIp: 62.96.159.233/32
+  Host2ELB80RuleIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      FromPort: '80'
+      ToPort: '80'
+      CidrIp: 62.96.159.233/32
+      GroupId: !GetAtt ElbSG.GroupId
+  Host2ELB443RuleIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      FromPort: '443'
+      ToPort: '443'
+      CidrIp: 62.96.159.233/32
+      GroupId: !GetAtt ElbSG.GroupId

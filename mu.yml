@@ -160,4 +160,4 @@ service:
 # CFN code modifications
 extensions:
   - url: extensions/app
-  - url: extensions/replacements
+  # - url: extensions/replacements
