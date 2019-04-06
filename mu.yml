@@ -139,7 +139,7 @@ service:
 
   ### See https://github.com/stelligent/mu/wiki/Pipelines
   pipeline:
-    muBaseurl: https://s3.eu-central-1.amazonaws.com/eu-central-1-mu-releases/
+    muBaseurl: https://s3.eu-central-1.amazonaws.com/hackathon-xskiller
     source:
       #### GitHub or CodeCommit
       #### (default: GitHub)
