@@ -139,6 +139,8 @@ service:
 
   ### See https://github.com/stelligent/mu/wiki/Pipelines
   pipeline:
+    MuBaseurl: https://s3.eu-central-1.amazonaws.com/eu-central-1-mu-releases/linux_amd64/mu
+    # MuVersion: ""
     source:
       #### GitHub or CodeCommit
       #### (default: GitHub)
