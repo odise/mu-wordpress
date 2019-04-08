@@ -58,9 +58,12 @@ Resources:
       MetricName: CPUUtilization
       Unit: Percent
       Statistic: Average
-      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
-      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
-      Threshold: !Ref DatabaseAlarmMaxCpuPercent
+      EvaluationPeriods: 
+        Ref: DatabaseAlarmEvaluationPeriods
+      Period: 
+        Ref: DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: 
+        Ref: DatabaseAlarmMaxCpuPercent
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Dimensions:
         - Name: DBInstanceIdentifier
@@ -70,7 +73,7 @@ Resources:
             - Ref: DBCluster
             - Ref: DBInstanceStandalone
       AlarmActions:
-        - !Ref DatabaseAlarmTopic
+        - Ref: DatabaseAlarmTopic
 
   DatabaseFreeStorageSpaceAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -82,9 +85,12 @@ Resources:
       MetricName: FreeStorageSpace
       Unit: Bytes
       Statistic: Average
-      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
-      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
-      Threshold: !Ref DatabaseAlarmMinFreeSpaceInBytes
+      EvaluationPeriods: 
+        Ref: DatabaseAlarmEvaluationPeriods
+      Period: 
+        Ref: DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: 
+        Ref: DatabaseAlarmMinFreeSpaceInBytes
       ComparisonOperator: LessThanOrEqualToThreshold
       Dimensions:
         - Name: DBInstanceIdentifier
@@ -94,7 +100,7 @@ Resources:
             - Ref: DBCluster
             - Ref: DBInstanceStandalone
       AlarmActions:
-        - !Ref DatabaseAlarmTopic
+        - Ref: DatabaseAlarmTopic
 
   DatabaseSwapUsageAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -106,9 +112,12 @@ Resources:
       MetricName: SwapUsage
       Unit: Bytes
       Statistic: Average
-      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
-      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
-      Threshold: !Ref DatabaseAlarmSwapUsageInBytes
+      EvaluationPeriods: 
+        Ref: DatabaseAlarmEvaluationPeriods
+      Period: 
+        Ref: DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: 
+        Ref: DatabaseAlarmSwapUsageInBytes
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Dimensions:
         - Name: DBInstanceIdentifier
@@ -118,7 +127,7 @@ Resources:
             - Ref: DBCluster
             - Ref: DBInstanceStandalone
       AlarmActions:
-        - !Ref DatabaseAlarmTopic
+        - Ref: DatabaseAlarmTopic
 
   DatabaseReadLatencyAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -130,9 +139,12 @@ Resources:
       MetricName: ReadLatency
       Unit: Seconds
       Statistic: Average
-      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
-      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
-      Threshold: !Ref DatabaseAlarmReadLatencyMaxSeconds
+      EvaluationPeriods: 
+        Ref: DatabaseAlarmEvaluationPeriods
+      Period: 
+        Ref: DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: 
+        Ref: DatabaseAlarmReadLatencyMaxSeconds
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Dimensions:
         - Name: DBInstanceIdentifier
@@ -142,7 +154,7 @@ Resources:
             - Ref: DBCluster
             - Ref: DBInstanceStandalone
       AlarmActions:
-        - !Ref DatabaseAlarmTopic
+        - Ref: DatabaseAlarmTopic
 
   DatabaseWriteLatencyAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -154,9 +166,12 @@ Resources:
       MetricName: WriteLatency
       Unit: Seconds
       Statistic: Average
-      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
-      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
-      Threshold: !Ref DatabaseAlarmWriteLatencyMaxSeconds
+      EvaluationPeriods: 
+        Ref: DatabaseAlarmEvaluationPeriods
+      Period: 
+        Ref: DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: 
+        Ref: DatabaseAlarmWriteLatencyMaxSeconds
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Dimensions:
         - Name: DBInstanceIdentifier
@@ -166,4 +181,4 @@ Resources:
             - Ref: DBCluster
             - Ref: DBInstanceStandalone
       AlarmActions:
-        - !Ref DatabaseAlarmTopic
+        - Ref: DatabaseAlarmTopic
