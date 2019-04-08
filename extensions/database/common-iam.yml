@@ -9,5 +9,6 @@ Resources:
           Statement:
           - Action:
             - sns:CreateTopic
+            - sns:GetTopicAttributes
             Resource: '*'
             Effect: Allow
