@@ -205,3 +205,18 @@ Resources:
             - Ref: DBInstanceStandalone
       AlarmActions:
         - Ref: DatabaseAlarmTopic
+
+Outputs:
+  DatabaseAlarmTopicArn:
+    Description: Database Alarm Topic ARN
+    Condition: AlarmsEnabled
+    Value: !Ref DatabaseAlarmTopic
+    Export:
+      Name: !Sub ${AWS::StackName}-DatabaseAlarmTopicArn
+
+  DatabaseAlarmTopicName:
+    Description: Database Alarm Topic Name
+    Condition: AlarmsEnabled
+    Value: !GetAtt DatabaseAlarmTopic.TopicName
+    Export:
+      Name: !Sub ${AWS::StackName}-DatabaseAlarmTopicName
