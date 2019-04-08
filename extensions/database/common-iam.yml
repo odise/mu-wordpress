@@ -1,4 +1,4 @@
-Resouces:
+Resources:
   CloudFormationRole:
     Type: AWS::IAM::Role
     Properties:
