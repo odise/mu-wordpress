@@ -163,3 +163,7 @@ extensions:
   - url: extensions/app
   - url: extensions/database
   # - url: extensions/replacements
+
+parameters:
+  'mu-database-mu-wordpress-test':
+    EnableAlarms: true
