@@ -71,11 +71,6 @@ Resources:
             - Ref: DBInstanceStandalone
       AlarmActions:
         - !Ref DatabaseAlarmTopic
-    DependsOn:
-    - Fn::If:
-      - IsClustered
-      - Ref: DBCluster
-      - Ref: DBInstanceStandalone
 
   DatabaseFreeStorageSpaceAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -100,11 +95,6 @@ Resources:
             - Ref: DBInstanceStandalone
       AlarmActions:
         - !Ref DatabaseAlarmTopic
-    DependsOn:
-    - Fn::If:
-      - IsClustered
-      - Ref: DBCluster
-      - Ref: DBInstanceStandalone
 
   DatabaseSwapUsageAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -129,11 +119,6 @@ Resources:
             - Ref: DBInstanceStandalone
       AlarmActions:
         - !Ref DatabaseAlarmTopic
-    DependsOn:
-    - Fn::If:
-      - IsClustered
-      - Ref: DBCluster
-      - Ref: DBInstanceStandalone
 
   DatabaseReadLatencyAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -158,11 +143,6 @@ Resources:
             - Ref: DBInstanceStandalone
       AlarmActions:
         - !Ref DatabaseAlarmTopic
-    DependsOn:
-    - Fn::If:
-      - IsClustered
-      - Ref: DBCluster
-      - Ref: DBInstanceStandalone
 
   DatabaseWriteLatencyAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -187,8 +167,3 @@ Resources:
             - Ref: DBInstanceStandalone
       AlarmActions:
         - !Ref DatabaseAlarmTopic
-    DependsOn:
-    - Fn::If:
-      - IsClustered
-      - Ref: DBCluster
-      - Ref: DBInstanceStandalone
