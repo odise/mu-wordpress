@@ -8,7 +8,10 @@ Resources:
           Version: '2012-10-17'
           Statement:
           - Action:
+            - sns:Get*
+            - sns:List*
             - sns:CreateTopic
-            - sns:GetTopicAttributes
+            - sns:DeleteTopic
+            - sns:SetTopicAttributes
             Resource: '*'
             Effect: Allow
