@@ -1,0 +1,154 @@
+Parameters:
+  DatabaseAlarmMaxCpuPercent:
+    Description: Database CPU % max for alarm
+    Type: Number
+    Default: 80
+    MinValue: 1
+    MaxValue: 99
+    ConstraintDescription: Must be a percentage between 1-99%
+
+  DatabaseAlarmReadLatencyMaxSeconds:
+    Description: Read latency max for alarm
+    Type: Number
+    Default: 1
+    MinValue: 1
+
+  DatabaseAlarmWriteLatencyMaxSeconds:
+    Description: Write latency max for alarm
+    Type: Number
+    Default: 1
+    MinValue: 1
+
+  DatabaseAlarmEvaluationPeriods:
+    Description: The number of periods over which data is compared to the specified threshold
+    Type: Number
+    Default: 2
+    MinValue: 2
+
+  DatabaseAlarmEvaluationPeriodSeconds:
+    Description: The time over which the specified statistic is applied. Specify time in seconds, in multiples of 60. Enhanced monitoring must be enabled if less than 500 seconds
+    Type: Number
+    Default: 300
+    MinValue: 60
+    ConstraintDescription: Must be at least 60 seconds
+
+  EnableAlarms:
+    Default: false
+    Type: String
+    Description: Set to true to enable (additional charges - https://aws.amazon.com/cloudwatch/pricing/)
+    ConstraintDescription: Only true or false are allowed
+    AllowedValues:
+      - true
+      - false
+
+Conditions:
+  AlarmsEnabled: 
+    Fn::Equals: 
+      - Ref: EnableAlarms
+      - true 
+
+Resources:
+  DatabaseCpuAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Condition: AlarmsEnabled
+    Properties:
+      AlarmDescription: !Sub "DB CPU utilization is over ${DatabaseAlarmMaxCpuPercent}% for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
+      TreatMissingData: notBreaching
+      Namespace: AWS/RDS
+      MetricName: CPUUtilization
+      Unit: Percent
+      Statistic: Average
+      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
+      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: !Ref DatabaseAlarmMaxCpuPercent
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: DBInstanceIdentifier
+          Value: !Ref Database
+      AlarmActions:
+        - !Ref DatabaseAlarmTopic
+    DependsOn: Database
+
+  DatabaseFreeStorageSpaceAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Condition: AlarmsEnabled
+    Properties:
+      AlarmDescription: !Sub "DB free storage space is less than ${DatabaseAlarmMinFreeSpaceInBytes} for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
+      TreatMissingData: notBreaching
+      Namespace: AWS/RDS
+      MetricName: FreeStorageSpace
+      Unit: Bytes
+      Statistic: Average
+      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
+      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: !Ref DatabaseAlarmMinFreeSpaceInBytes
+      ComparisonOperator: LessThanOrEqualToThreshold
+      Dimensions:
+        - Name: DBInstanceIdentifier
+          Value: !Ref Database
+      AlarmActions:
+        - !Ref DatabaseAlarmTopic
+    DependsOn: Database
+
+  DatabaseSwapUsageAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Condition: AlarmsEnabled
+    Properties:
+      AlarmDescription: !Sub "DB swap usage is greater than than ${DatabaseAlarmSwapUsageInBytes} for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
+      TreatMissingData: notBreaching
+      Namespace: AWS/RDS
+      MetricName: SwapUsage
+      Unit: Bytes
+      Statistic: Average
+      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
+      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: !Ref DatabaseAlarmSwapUsageInBytes
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: DBInstanceIdentifier
+          Value: !Ref Database
+      AlarmActions:
+        - !Ref DatabaseAlarmTopic
+    DependsOn: Database
+
+  DatabaseReadLatencyAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Condition: AlarmsEnabled
+    Properties:
+      AlarmDescription: !Sub "DB read latency is over ${DatabaseAlarmReadLatencyMaxSeconds} for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
+      TreatMissingData: notBreaching
+      Namespace: AWS/RDS
+      MetricName: ReadLatency
+      Unit: Seconds
+      Statistic: Average
+      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
+      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: !Ref DatabaseAlarmReadLatencyMaxSeconds
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: DBInstanceIdentifier
+          Value: !Ref Database
+      AlarmActions:
+        - !Ref DatabaseAlarmTopic
+    DependsOn: Database
+
+  DatabaseWriteLatencyAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Condition: AlarmsEnabled
+    Properties:
+      AlarmDescription: !Sub "DB write latency is over ${DatabaseAlarmWriteLatencyMaxSeconds} for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
+      TreatMissingData: notBreaching
+      Namespace: AWS/RDS
+      MetricName: WriteLatency
+      Unit: Seconds
+      Statistic: Average
+      EvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
+      Period: !Ref DatabaseAlarmEvaluationPeriodSeconds
+      Threshold: !Ref DatabaseAlarmWriteLatencyMaxSeconds
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: DBInstanceIdentifier
+          Value: !Ref Database
+      AlarmActions:
+        - !Ref DatabaseAlarmTopic
+    DependsOn: Database

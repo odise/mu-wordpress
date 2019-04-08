@@ -161,4 +161,5 @@ service:
 # CFN code modifications
 extensions:
   - url: extensions/app
+  - url: extensions/database
   # - url: extensions/replacements
