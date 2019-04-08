@@ -212,11 +212,13 @@ Outputs:
     Condition: AlarmsEnabled
     Value: !Ref DatabaseAlarmTopic
     Export:
-      Name: !Sub ${AWS::StackName}-DatabaseAlarmTopicArn
+      Name: 
+        Fn::Sub: "${AWS::StackName}-DatabaseAlarmTopicArn"
 
   DatabaseAlarmTopicName:
     Description: Database Alarm Topic Name
     Condition: AlarmsEnabled
     Value: !GetAtt DatabaseAlarmTopic.TopicName
     Export:
-      Name: !Sub ${AWS::StackName}-DatabaseAlarmTopicName
+      Name: 
+        Fn::Sub: "${AWS::StackName}-DatabaseAlarmTopicName"
