@@ -31,12 +31,20 @@ Parameters:
     Default: 300
     MinValue: 60
     ConstraintDescription: Must be at least 60 seconds
-  # Default is 200 MB
   
+  # Default is 200 MB
   DatabaseAlarmSwapUsageInBytes:
     Default: 209715200
     Type: Number
     Description: Number of swap usage bytes for alarm (if enabled)
+    MinValue: 1
+    ConstraintDescription: A value of one byte or more
+  
+  # Default is 500 MB
+  DatabaseAlarmMinFreeSpaceInBytes:
+    Default: 524288000
+    Type: Number
+    Description: Number of min free space bytes for alarm (if enabled)
     MinValue: 1
     ConstraintDescription: A value of one byte or more
 
