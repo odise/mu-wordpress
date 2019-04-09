@@ -1,0 +1,11 @@
+Parameters:
+  ServiceLogGroupRetentionInDays:
+    Description: ParameterDescription
+    Type: Number
+    Default: 30
+    
+Resources:
+  ServiceLogGroup:
+    Properties:
+      RetentionInDays: 
+        Ref: ServiceLogGroupRetentionInDays

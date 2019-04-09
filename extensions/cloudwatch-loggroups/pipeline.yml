@@ -1,7 +1,7 @@
 Parameters:
   PipelineLogGroupRetentionInDays:
     Description: Retention period for CloudWatch Logs log group in days
-    Type: String
+    Type: Number
     Default: 7
 
 Resources:
