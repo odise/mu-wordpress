@@ -76,6 +76,8 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Condition: AlarmsEnabled
     Properties:
+      AlarmName: 
+        Fn::Sub: "[${Namespace}-${DatabaseEngine}-${EnvironmentName}] DB CPU utilization"
       AlarmDescription: !Sub "DB CPU utilization is over ${DatabaseAlarmMaxCpuPercent}% for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
       TreatMissingData: notBreaching
       Namespace: AWS/RDS
@@ -103,6 +105,8 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Condition: AlarmsEnabled
     Properties:
+      AlarmName: 
+        Fn::Sub: "[${Namespace}-${DatabaseEngine}-${EnvironmentName}] DB free storage space"
       AlarmDescription: !Sub "DB free storage space is less than ${DatabaseAlarmMinFreeSpaceInBytes} for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
       TreatMissingData: notBreaching
       Namespace: AWS/RDS
@@ -130,6 +134,8 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Condition: AlarmsEnabled
     Properties:
+      AlarmName: 
+        Fn::Sub: "[${Namespace}-${DatabaseEngine}-${EnvironmentName}] DB swap usage"
       AlarmDescription: !Sub "DB swap usage is greater than than ${DatabaseAlarmSwapUsageInBytes} for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
       TreatMissingData: notBreaching
       Namespace: AWS/RDS
@@ -157,6 +163,8 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Condition: AlarmsEnabled
     Properties:
+      AlarmName: 
+        Fn::Sub: "[${Namespace}-${DatabaseEngine}-${EnvironmentName}] DB read latency"
       AlarmDescription: !Sub "DB read latency is over ${DatabaseAlarmReadLatencyMaxSeconds} for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
       TreatMissingData: notBreaching
       Namespace: AWS/RDS
@@ -184,6 +192,8 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Condition: AlarmsEnabled
     Properties:
+      AlarmName: 
+        Fn::Sub: "[${Namespace}-${DatabaseEngine}-${EnvironmentName}] DB write latency"
       AlarmDescription: !Sub "DB write latency is over ${DatabaseAlarmWriteLatencyMaxSeconds} for ${DatabaseAlarmEvaluationPeriods} period(s) of ${DatabaseAlarmEvaluationPeriodSeconds} seconds"
       TreatMissingData: notBreaching
       Namespace: AWS/RDS
