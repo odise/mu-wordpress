@@ -48,7 +48,7 @@ Parameters:
     MinValue: 1
     ConstraintDescription: A value of one byte or more
 
-  EnableAlarms:
+  EnableDatabaseAlarms:
     Default: false
     Type: String
     Description: Set to true to enable (additional charges - https://aws.amazon.com/cloudwatch/pricing/)
@@ -60,7 +60,7 @@ Parameters:
 Conditions:
   AlarmsEnabled: 
     Fn::Equals: 
-      - Ref: EnableAlarms
+      - Ref: EnableDatabaseAlarms
       - true 
 
 Resources:

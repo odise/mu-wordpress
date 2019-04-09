@@ -1,0 +1,91 @@
+Parameters:
+  AlarmPeriod:
+    Description: Data evaluation period in seconds
+    Type: Number
+    Default: 60
+  AlarmEvaluationPeriods:
+    Description: Group size of data evaluation periods
+    Type: Number
+    Default: 1
+  AlarmThreshold:
+    Description: Limit in percent above which alarms are raised
+    Type: Number
+    Default: 80
+  EnableEcsServiceAlarms:
+    Default: false
+    Type: String
+    Description: Set to true to enable ECS service alarms (additional charges - https://aws.amazon.com/cloudwatch/pricing/)
+    ConstraintDescription: Only true or false are allowed
+    AllowedValues:
+      - true
+      - false
+
+Conditions:
+  AlarmsEnabled: 
+    Fn::Equals: 
+      - Ref: EnableEcsServiceAlarms
+      - true 
+  
+Resources:
+  EcsServiceAlarmTopic:
+    Type: AWS::SNS::Topic
+    Condition: AlarmsEnabled
+    Properties:
+      DisplayName: 
+        Fn::Sub: "${ServiceName} service Alarm Topic"
+  EcsServiceCPUAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Condition: AlarmsEnabled
+    Properties:
+      AlarmName: 
+        Fn::Sub: "[${Namespace}-${ServiceName}-${EnvironmentName}] ECS service CPU utilization"
+      AlarmDescription: 
+        Fn::Sub: "Raise alarm if CPU utilization > ${AlarmThreshold}% for ${AlarmPeriod}s"
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      AlarmActions:
+      - Ref: "EcsServiceAlarmTopic"
+      Period: 
+        Ref: "AlarmPeriod"
+      EvaluationPeriods: 
+        Ref: "AlarmEvaluationPeriods"
+      Threshold: 
+        Ref: "AlarmThreshold"
+      Dimensions:
+      - Name: "ClusterName"
+        Value:
+          Fn::ImportValue: 
+            Sub::Fn: "${EcsCluster}"
+      - Name: "ServiceName"
+        Value:
+          Fn::Sub: "${Namespace}-${ServiceName}-${EnvironmentName}"
+      ComparisonOperator: GreaterThanThreshold
+  EcsServiceMemoryAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Condition: AlarmsEnabled
+    Properties:
+      AlarmName: 
+        Fn::Sub: "[${Namespace}-${ServiceName}-${EnvironmentName}] ECS service memory utilization"
+      AlarmDescription: 
+        Fn::Sub: "Raise alarm if memory utilization > ${AlarmThreshold}% for ${AlarmPeriod}s"
+      MetricName: MemoryUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      AlarmActions:
+      - Ref: "ToEcsServiceAlarmTopic"
+      Period: 
+        Ref: "AlarmPeriod"
+      EvaluationPeriods: 
+        Ref: "AlarmEvaluationPeriods"
+      Threshold: 
+        Ref: "AlarmThreshold"
+      Dimensions:
+      - Name: "ClusterName"
+        Value:
+          Fn::ImportValue: 
+            Sub::Fn: "${EcsCluster}"
+      - Name: "ServiceName"
+        Value:
+          Fn::Sub: "${Namespace}-${ServiceName}-${EnvironmentName}"
+      ComparisonOperator: GreaterThanThreshold

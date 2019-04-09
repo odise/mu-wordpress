@@ -167,4 +167,6 @@ extensions:
 
 parameters:
   'mu-database-mu-wordpress-test':
-    EnableAlarms: true
+    EnableDatabaseAlarms: true
+  'mu-service-mu-wordpress-test':
+    EnableEcsServiceAlarms: true
