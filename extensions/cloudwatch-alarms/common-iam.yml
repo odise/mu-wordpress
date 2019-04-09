@@ -15,7 +15,8 @@ Resources:
             - sns:SetTopicAttributes
             - cloudwatch:PutMetricAlarm
             - cloudwatch:DeleteAlarms
-            - cloudwatch:DescribeAlarmsForMetric
             - cloudwatch:ListMetrics
+            # - cloudwatch:DescribeAlarmsForMetric
+            - cloudwatch:DescribeAlarms* 
             Resource: '*'
             Effect: Allow
