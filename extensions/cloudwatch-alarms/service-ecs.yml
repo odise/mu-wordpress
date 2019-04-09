@@ -73,7 +73,7 @@ Resources:
       Namespace: AWS/EC2
       Statistic: Average
       AlarmActions:
-      - Ref: "ToEcsServiceAlarmTopic"
+      - Ref: "EcsServiceAlarmTopic"
       Period: 
         Ref: "AlarmPeriod"
       EvaluationPeriods: 
