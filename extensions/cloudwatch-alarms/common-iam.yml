@@ -3,23 +3,7 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       Policies:
-      - PolicyName: deploy-database-cloudwatch-alarms-extra
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-          - Action:
-            - sns:Get*
-            - sns:List*
-            - sns:CreateTopic
-            - sns:DeleteTopic
-            - sns:SetTopicAttributes
-            - cloudwatch:PutMetricAlarm
-            - cloudwatch:DeleteAlarms
-            - cloudwatch:DescribeAlarmsForMetric
-            - cloudwatch:ListMetrics
-            Resource: '*'
-            Effect: Allow
-      - PolicyName: deploy-service-cloudwatch-alarms-extra
+      - PolicyName: deploy-cloudwatch-alarms-extra
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
