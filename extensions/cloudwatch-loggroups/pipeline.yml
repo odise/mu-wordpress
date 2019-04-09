@@ -14,9 +14,9 @@ Resources:
         Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-artifact"
       RetentionInDays: 
         Ref: PipelineLogGroupRetentionInDays
-  CodeBuildImageLogGroup:  
   CodeBuildImage:
     DependsOn: CodeBuildImageLogGroup
+  CodeBuildImageLogGroup:  
     Type: AWS::Logs::LogGroup
     Properties: 
       LogGroupName: 
