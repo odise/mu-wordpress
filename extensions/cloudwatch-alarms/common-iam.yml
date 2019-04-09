@@ -15,3 +15,15 @@ Resources:
             - sns:SetTopicAttributes
             Resource: '*'
             Effect: Allow
+      - PolicyName: deploy-service-extra
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Action:
+            - sns:Get*
+            - sns:List*
+            - sns:CreateTopic
+            - sns:DeleteTopic
+            - sns:SetTopicAttributes
+            Resource: '*'
+            Effect: Allow
