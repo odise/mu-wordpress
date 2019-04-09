@@ -161,7 +161,7 @@ service:
 # CFN code modifications
 extensions:
   - url: extensions/app
-  - url: extensions/database
+  - url: extensions/cloudwatch-alarms
   - url: extensions/cloudwatch-loggroups
   # - url: extensions/replacements
 
