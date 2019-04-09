@@ -5,7 +5,7 @@ Parameters:
     Default: 7
 
 Resources:
-  CodeBuild:  
+  CodeBuildArtifact:  
     DependsOn: CodeBuildArtifactLogGroup  
   CodeBuildArtifactLogGroup:  
     Type: AWS::Logs::LogGroup
