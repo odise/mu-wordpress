@@ -1,0 +1,13 @@
+Resources:
+  CloudFormationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+      - PolicyName: deploy-service-extra
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Action:
+            - logs:PutRetentionPolicy
+            Resource: '*'
+            Effect: Allow
