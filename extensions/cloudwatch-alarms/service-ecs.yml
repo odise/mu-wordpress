@@ -56,7 +56,7 @@ Resources:
       - Name: "ClusterName"
         Value:
           Fn::ImportValue: 
-            Sub::Fn: "${EcsCluster}"
+            Ref: EcsCluster
       - Name: "ServiceName"
         Value:
           Fn::Sub: "${Namespace}-${ServiceName}-${EnvironmentName}"
@@ -84,7 +84,7 @@ Resources:
       - Name: "ClusterName"
         Value:
           Fn::ImportValue: 
-            Sub::Fn: "${EcsCluster}"
+            Ref: EcsCluster
       - Name: "ServiceName"
         Value:
           Fn::Sub: "${Namespace}-${ServiceName}-${EnvironmentName}"
