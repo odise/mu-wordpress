@@ -3,7 +3,7 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       Policies:
-      - PolicyName: deploy-service-extra
+      - PolicyName: deploy-service-cloudwatch-loggroups-extra
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
