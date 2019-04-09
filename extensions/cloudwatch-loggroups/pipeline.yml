@@ -1,0 +1,61 @@
+Parameters:
+  PipelineLogGroupRetentionInDays:
+    Description: Retention period for CloudWatch Logs log group in days
+    Type: String
+    Default: 7
+
+Resources:
+  CodeBuild:  
+    DependsOn: CodeBuildArtifactLogGroup  
+  CodeBuildArtifactLogGroup:  
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: 
+        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-artifact"
+      RetentionInDays: 
+        Ref: PipelineLogGroupRetentionInDays
+  CodeBuildImageLogGroup:  
+  CodeBuildImage:
+    DependsOn: CodeBuildImageLogGroup
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: 
+        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-image"
+      RetentionInDays: 
+        Ref: PipelineLogGroupRetentionInDays
+  DeployAcceptance:  
+    DependsOn: DeployAcceptanceLogGroup
+  DeployAcceptanceLogGroup:  
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: 
+        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-deploy-acceptance"
+      RetentionInDays: 
+        Ref: PipelineLogGroupRetentionInDays
+  TestAcceptance:  
+    DependsOn: TestAcceptanceLogGroup
+  TestAcceptanceLogGroup:  
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: 
+        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-test-acceptance"
+      RetentionInDays: 
+        Ref: PipelineLogGroupRetentionInDays
+  DeployProduction:  
+    DependsOn: DeployProductionLogGroup
+  DeployProductionLogGroup:  
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: 
+        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-deploy-production"
+      RetentionInDays: 
+        Ref: PipelineLogGroupRetentionInDays
+  TestProduction:
+    DependsOn: TestProductionLogGroup
+  TestProductionLogGroup:  
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: 
+        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-test-production"
+      RetentionInDays: 
+        Ref: PipelineLogGroupRetentionInDays

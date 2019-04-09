@@ -1,0 +1,4 @@
+name: cloudwatch-loggroups
+version: 1.0
+
+templateUpdateMode: merge

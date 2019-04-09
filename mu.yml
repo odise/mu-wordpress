@@ -162,6 +162,7 @@ service:
 extensions:
   - url: extensions/app
   - url: extensions/database
+  - url: extensions/cloudwatch-loggroups
   # - url: extensions/replacements
 
 parameters:
