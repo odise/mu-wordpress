@@ -11,7 +11,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties: 
       LogGroupName: 
-        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-artifact"
+        Fn::Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-artifact"
       RetentionInDays: 
         Ref: PipelineLogGroupRetentionInDays
   CodeBuildImage:
@@ -20,7 +20,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties: 
       LogGroupName: 
-        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-image"
+        Fn::Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-image"
       RetentionInDays: 
         Ref: PipelineLogGroupRetentionInDays
   DeployAcceptance:  
@@ -29,7 +29,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties: 
       LogGroupName: 
-        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-deploy-acceptance"
+        Fn::Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-deploy-acceptance"
       RetentionInDays: 
         Ref: PipelineLogGroupRetentionInDays
   TestAcceptance:  
@@ -38,7 +38,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties: 
       LogGroupName: 
-        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-test-acceptance"
+        Fn::Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-test-acceptance"
       RetentionInDays: 
         Ref: PipelineLogGroupRetentionInDays
   DeployProduction:  
@@ -47,7 +47,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties: 
       LogGroupName: 
-        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-deploy-production"
+        Fn::Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-deploy-production"
       RetentionInDays: 
         Ref: PipelineLogGroupRetentionInDays
   TestProduction:
@@ -56,6 +56,6 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties: 
       LogGroupName: 
-        Fn:Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-test-production"
+        Fn::Sub: "/aws/codebuild/${Namespace}-pipeline-${ServiceName}-test-production"
       RetentionInDays: 
         Ref: PipelineLogGroupRetentionInDays
